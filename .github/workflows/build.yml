@@ -9,18 +9,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup MSVC
-        uses: bus1/setup-msvc@v1
-        with:
-          architecture: x64
+      - name: Open Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Build VST3
         run: |
           cmake -B build -G "Visual Studio 17 2022" -A x64
           cmake --build build --config Release
+
       - name: Build installer
         run: |
           choco install innosetup -y
